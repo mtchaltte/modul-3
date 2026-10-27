@@ -1,5 +1,6 @@
-from controllers.buku_controller import BukuController
+#tama_002
+from controllers.auth_controller import AuthController
 
 if __name__ == "__main__":
-    app = BukuController()
+    app = AuthController()
     app.run()
