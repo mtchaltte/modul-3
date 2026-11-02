@@ -48,8 +48,28 @@ class BukuController:
             self.view.entry_penulis.configure(state="disabled")
             self.view.entry_tahun.configure(state="disabled")
 
+         # Menghubungkan tombol Logout
+        self.view.btn_logout.configure(
+            command=self.logout
+        )
+
         # Memuat data saat aplikasi dibuka
         self.muat_data_tabel()
+
+        # Membatasi akses pengguna non-admin
+        if self.user_role != "admin":
+            self.view.btn_simpan.configure(
+                state="disabled",
+                text="Akses Terkunci (Khusus Admin)"
+            )
+            self.view.btn_update.configure(state="disabled")
+            self.view.btn_hapus.configure(state="disabled")
+
+            self.view.entry_judul.configure(state="disabled")
+            self.view.entry_penulis.configure(state="disabled")
+            self.view.entry_tahun.configure(state="disabled")
+
+    
 
     # MENAMPILKAN DATA KE TABEL
     def muat_data_tabel(self):
@@ -265,6 +285,15 @@ class BukuController:
     def run(self):
         self.view.mainloop()
 
+    # LOGOUT DAN KEMBALI KE LOGIN
+    def logout(self):
+        self.view.destroy()
+
+        # Membuka kembali jendela Login
+        from controllers.auth_controller import AuthController
+
+        auth = AuthController()
+        auth.run()
 
 if __name__ == "__main__":
     app = BukuController(user_role="admin")

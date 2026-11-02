@@ -20,6 +20,8 @@ class Database:
             )
 
             if self.conn.is_connected():
+                print("Koneksi database berhasil!")
+                print("Database aktif:", self.conn.database)
                 return self.conn
 
         except Error as e:
